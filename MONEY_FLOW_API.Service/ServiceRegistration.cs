@@ -12,6 +12,11 @@ namespace MONEY_FLOW_API.Service
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IVersionService, VersionService>();
             #endregion
+
+            #region # SETUP
+            services.AddTransient<IAccountsService, AccountsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            #endregion
         }
     }
 }
