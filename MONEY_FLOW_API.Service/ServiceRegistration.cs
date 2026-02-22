@@ -20,6 +20,7 @@ namespace MONEY_FLOW_API.Service
 
             #region # TRANSACTIONS
             services.AddTransient<ITransactionsService, TransactionsService>();
+            services.AddTransient<ITransferService, TransferService>();
             #endregion
         }
     }

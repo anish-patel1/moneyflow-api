@@ -12,5 +12,11 @@
         public decimal? Amount { get; set; }
         public string? TransactionType { get; set; }
         public string? Description { get; set; }
+
+        // For Transfer
+        public string? TransferGroupId { get; set; }
+        public string? FronAccountName { get; set; }
+        public string? ToAccountName { get; set; }
+        public string? RowType { get; set; }
     }
 }

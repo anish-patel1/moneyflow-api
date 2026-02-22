@@ -55,9 +55,6 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@UserId", obj.UserId);
             queryParameters.Add("@FromDate", obj.FromDate);
             queryParameters.Add("@ToDate", obj.ToDate);
-            queryParameters.Add("@AccountId", obj.AccountId);
-            queryParameters.Add("@CategoryId", obj.CategoryId);
-            queryParameters.Add("@TransactionType", obj.TransactionType);
             return await _context.CustomQueryAsync<Transactions>("MF_Transactions_SelectAll", queryParameters);
         }
 

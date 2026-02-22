@@ -25,6 +25,7 @@ namespace MONEY_FLOW_API.Repository
         {
             var queryParameters = new DynamicParameters();
             queryParameters.Add("@UserId", obj.UserId);
+            queryParameters.Add("@CategoryType", obj.CategoryType);
             return await _context.CustomQueryAsync<Categories>("MF_Categories_Dropdown", queryParameters);
         }
 
