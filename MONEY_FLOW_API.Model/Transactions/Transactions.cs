@@ -14,8 +14,8 @@
         public string? Description { get; set; }
 
         // For Transfer
-        public string? TransferGroupId { get; set; }
-        public string? FronAccountName { get; set; }
+        public Guid? TransferGroupId { get; set; }
+        public string? FromAccountName { get; set; }
         public string? ToAccountName { get; set; }
         public string? RowType { get; set; }
     }

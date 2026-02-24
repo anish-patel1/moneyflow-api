@@ -2,7 +2,7 @@
 {
     public class Transfer : BaseClass
     {
-        public string? TransferGroupId { get; set; }
+        public Guid? TransferGroupId { get; set; }
         public int? FromAccountId { get; set; }
         public int? ToAccountId { get; set; }
         public string? Amount { get; set; }
