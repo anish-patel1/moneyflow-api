@@ -5,7 +5,7 @@
         public Guid? TransferGroupId { get; set; }
         public int? FromAccountId { get; set; }
         public int? ToAccountId { get; set; }
-        public string? Amount { get; set; }
+        public decimal? Amount { get; set; }
         public string? TransferDate { get; set; }
         public string? Description { get; set; }
     }
