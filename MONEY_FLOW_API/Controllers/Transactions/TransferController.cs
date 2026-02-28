@@ -2,6 +2,7 @@
 using MONEY_FLOW_API.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.SqlClient;
 
 namespace MONEY_FLOW_API.Controllers
 {
@@ -32,9 +33,35 @@ namespace MONEY_FLOW_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Insert(Transfer obj)
         {
-            var data = await _transferService.Insert(obj);
+            try
+            {
+                await _transferService.Insert(obj);
 
-            return Ok(new {message = "Transfer created successfully!" });
+                return Ok(new
+                {
+                    success = true,
+                    type = "success",
+                    message = "Transfer created successfully!"
+                });
+            }
+            catch (SqlException ex)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    type = "warning",
+                    message = ex.Message
+                });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    type = "error",
+                    message = "Something went wrong."
+                });
+            }
         }
         #endregion
 
