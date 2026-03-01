@@ -1,4 +1,5 @@
-﻿using MONEY_FLOW_API.IService;
+﻿
+using MONEY_FLOW_API.IService;
 using MONEY_FLOW_API.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace MONEY_FLOW_API.Controllers
         #region # COMMON METHODS
 
         #region # Select Method
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Select(Transfer obj)
         {
             var data = await _transferService.Select(obj);
@@ -69,9 +70,35 @@ namespace MONEY_FLOW_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Transfer obj)
         {
-            var data = await _transferService.Update(obj);
+            try
+            {
+                await _transferService.Update(obj);
 
-            return Ok(new { message = "Transfer updated successfully!" });
+                return Ok(new
+                {
+                    success = true,
+                    type = "success",
+                    message = "Transfer updated successfully!"
+                });
+            }
+            catch (SqlException ex)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    type = "warning",
+                    message = ex.Message
+                });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    type = "error",
+                    message = "Something went wrong."
+                });
+            }
         }
         #endregion
 
@@ -79,9 +106,35 @@ namespace MONEY_FLOW_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Transfer obj)
         {
-            var data = await _transferService.Delete(obj);
+            try
+            {
+                await _transferService.Delete(obj);
 
-            return Ok(new { message = "Transfer deleted successfully!" });
+                return Ok(new
+                {
+                    success = true,
+                    type = "success",
+                    message = "Transfer deleted successfully!"
+                });
+            }
+            catch (SqlException ex)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    type = "warning",
+                    message = ex.Message
+                });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    type = "error",
+                    message = "Something went wrong."
+                });
+            }
         }
         #endregion
         
