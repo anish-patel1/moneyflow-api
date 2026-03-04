@@ -18,5 +18,8 @@
         public string? FromAccountName { get; set; }
         public string? ToAccountName { get; set; }
         public string? RowType { get; set; }
+
+        // Other
+        public int? PageSize { get; set; }
     }
 }

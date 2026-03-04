@@ -55,6 +55,7 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@UserId", obj.UserId);
             queryParameters.Add("@FromDate", obj.FromDate);
             queryParameters.Add("@ToDate", obj.ToDate);
+            queryParameters.Add("@PageSize", obj.PageSize);
             return await _context.CustomQueryAsync<Transactions>("MF_Transactions_SelectAll", queryParameters);
         }
 

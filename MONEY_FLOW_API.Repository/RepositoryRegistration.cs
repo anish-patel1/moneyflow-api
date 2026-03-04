@@ -15,6 +15,10 @@ namespace MONEY_FLOW_API.Repository
             services.AddTransient<IVersionRepository, VersionRepository>();
             #endregion
 
+            #region # DASHBOARD
+            services.AddTransient<IDashboardRepository, DashboardRepository>();
+            #endregion
+
             #region # SETUP
             services.AddTransient<IAccountsRepository, AccountsRepository>();
             services.AddTransient<ICategoriesRepository, CategoriesRepository>();

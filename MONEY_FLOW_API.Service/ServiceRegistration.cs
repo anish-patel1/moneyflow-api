@@ -13,6 +13,10 @@ namespace MONEY_FLOW_API.Service
             services.AddTransient<IVersionService, VersionService>();
             #endregion
 
+            #region # DASHBOARD
+            services.AddTransient<IDashboardService, DashboardService>();
+            #endregion
+
             #region # SETUP
             services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
