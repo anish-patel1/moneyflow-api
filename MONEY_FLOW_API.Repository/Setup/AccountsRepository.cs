@@ -35,6 +35,8 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@AccountName", obj.AccountName);
             queryParameters.Add("@AccountType", obj.AccountType);
             queryParameters.Add("@CreatedBy", obj.CreatedBy);
+            queryParameters.Add("@OpeningDate", obj.OpeningDate);
+            queryParameters.Add("@OpeningBalance", obj.OpeningBalance);
             await _context.CustomQueryAsync<Accounts>("MF_Accounts_Insert", queryParameters);
             return obj;
         }
