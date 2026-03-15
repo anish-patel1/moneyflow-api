@@ -29,6 +29,9 @@ namespace MONEY_FLOW_API.Repository
             services.AddTransient<ITransferRepository, TransferRepository>();
             #endregion
 
+            #region # INSTALLMENTS
+            services.AddTransient<IInstallmentsRepository, InstallmentsRepository>();
+            #endregion
         }
     }
 }

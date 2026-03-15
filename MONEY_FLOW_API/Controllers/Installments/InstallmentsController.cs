@@ -1,7 +1,7 @@
-﻿using MONEY_FLOW_API.IService;
-using MONEY_FLOW_API.Model;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MONEY_FLOW_API.IService;
+using MONEY_FLOW_API.Model;
 using MONEY_FLOW_API.Service;
 using System.Data.SqlClient;
 
@@ -10,21 +10,21 @@ namespace MONEY_FLOW_API.Controllers
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class TransactionsController : ControllerBase
+    public class InstallmentsController : ControllerBase
     {
-        private readonly ITransactionsService _transactionsService;
-        public TransactionsController(ITransactionsService transactionsService)
+        private readonly IInstallmentsService _installmentsService;
+        public InstallmentsController(IInstallmentsService installmentsService)
         {
-            _transactionsService = transactionsService;
+            _installmentsService = installmentsService;
         }
 
         #region # COMMON METHODS
 
         #region # SelectAll Method
         [HttpPost]
-        public async Task<IActionResult> SelectAll(Transactions obj)
+        public async Task<IActionResult> SelectAll(Installments obj)
         {
-            var data = await _transactionsService.SelectAll(obj);
+            var data = await _installmentsService.SelectAll(obj);
 
             return Ok(data);
         }
@@ -34,7 +34,7 @@ namespace MONEY_FLOW_API.Controllers
         [HttpGet]
         public async Task<IActionResult> Select(int? id)
         {
-            var data = await _transactionsService.Select(id);
+            var data = await _installmentsService.Select(id);
 
             return Ok(data);
         }
@@ -42,17 +42,17 @@ namespace MONEY_FLOW_API.Controllers
 
         #region # Insert Method
         [HttpPost]
-        public async Task<IActionResult> Insert(Transactions obj)
+        public async Task<IActionResult> Insert(Installments obj)
         {
             try
             {
-                await _transactionsService.Insert(obj);
+                await _installmentsService.Insert(obj);
 
                 return Ok(new
                 {
                     success = true,
                     type = "success",
-                    message = "Transaction created successfully!"
+                    message = "Installment created successfully!"
                 });
             }
             catch (SqlException ex)
@@ -78,17 +78,17 @@ namespace MONEY_FLOW_API.Controllers
 
         #region # Update Method
         [HttpPost]
-        public async Task<IActionResult> Update(Transactions obj)
+        public async Task<IActionResult> Update(Installments obj)
         {
             try
             {
-                await _transactionsService.Update(obj);
+                await _installmentsService.Update(obj);
 
                 return Ok(new
                 {
                     success = true,
                     type = "success",
-                    message = "Transaction updated successfully!"
+                    message = "Installment updated successfully!"
                 });
             }
             catch (SqlException ex)
@@ -114,17 +114,17 @@ namespace MONEY_FLOW_API.Controllers
 
         #region # Delete Method
         [HttpPost]
-        public async Task<IActionResult> Delete(Transactions obj)
+        public async Task<IActionResult> Delete(Installments obj)
         {
             try
             {
-                await _transactionsService.Delete(obj);
+                await _installmentsService.Delete(obj);
 
                 return Ok(new
                 {
                     success = true,
                     type = "success",
-                    message = "Transaction deleted successfully!"
+                    message = "Installment deleted successfully!"
                 });
             }
             catch (SqlException ex)
