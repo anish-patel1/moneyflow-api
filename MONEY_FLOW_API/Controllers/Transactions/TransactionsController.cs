@@ -2,7 +2,6 @@
 using MONEY_FLOW_API.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MONEY_FLOW_API.Service;
 using System.Data.SqlClient;
 
 namespace MONEY_FLOW_API.Controllers

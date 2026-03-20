@@ -148,6 +148,16 @@ namespace MONEY_FLOW_API.Controllers
         }
         #endregion
 
+        #region # Dropdown Method
+        [HttpPost]
+        public async Task<IActionResult> DropDown(Installments obj)
+        {
+            var data = await _installmentsService.DropDown(obj);
+
+            return Ok(data);
+        }
+        #endregion
+
         #endregion
     }
 }
