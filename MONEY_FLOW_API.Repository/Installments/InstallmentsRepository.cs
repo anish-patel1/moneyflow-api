@@ -54,6 +54,7 @@ namespace MONEY_FLOW_API.Repository
         {
             var queryParameters = new DynamicParameters();
             queryParameters.Add("@UserId", obj.UserId);
+            queryParameters.Add("@Status", obj.Status);
             return await _context.CustomQueryAsync<Installments>("MF_Installments_SelectAll", queryParameters);
         }
 
