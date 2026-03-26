@@ -14,5 +14,6 @@
         // Other
         public int? PaidMonths { get; set; }
         public int? RemainingMonths { get; set; }
+        public int? PageSize { get; set; }
     }
 }
