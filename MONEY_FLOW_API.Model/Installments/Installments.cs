@@ -7,6 +7,7 @@
         public decimal? TotalAmount { get; set; }
         public int? DurationMonths { get; set; }
         public decimal? MonthlyAmount { get; set; }
+        public int? InitialPaidMonths { get; set; }
         public string? StartDate { get; set; }
         public int? BillingDay { get; set; }
         public string? Description { get; set; }

@@ -36,6 +36,7 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@InstallmentName", obj.InstallmentName);
             queryParameters.Add("@TotalAmount", obj.TotalAmount);
             queryParameters.Add("@DurationMonths", obj.DurationMonths);
+            queryParameters.Add("@InitialPaidMonths", obj.InitialPaidMonths);
             queryParameters.Add("@StartDate", obj.StartDate);
             queryParameters.Add("@BillingDay", obj.BillingDay);
             queryParameters.Add("@Description", obj.Description);
@@ -67,6 +68,7 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@InstallmentName", obj.InstallmentName);
             queryParameters.Add("@TotalAmount", obj.TotalAmount);
             queryParameters.Add("@DurationMonths", obj.DurationMonths);
+            queryParameters.Add("@InitialPaidMonths", obj.InitialPaidMonths);
             queryParameters.Add("@StartDate", obj.StartDate);
             queryParameters.Add("@BillingDay", obj.BillingDay);
             queryParameters.Add("@Description", obj.Description);
