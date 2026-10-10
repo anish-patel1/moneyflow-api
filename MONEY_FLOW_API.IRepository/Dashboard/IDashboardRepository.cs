@@ -1,9 +1,9 @@
-﻿using MONEY_FLOW_API.Model;
+using MONEY_FLOW_API.Model;
 
 namespace MONEY_FLOW_API.IRepository
 {
     public interface IDashboardRepository
     {
-        Task<IEnumerable<DashboardSummary>> SummarySelect(int? id);
+        Task<IEnumerable<DashboardSummary>> SummarySelect(int? id, int? year = null, int? month = null);
     }
 }
