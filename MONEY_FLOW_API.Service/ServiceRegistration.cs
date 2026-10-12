@@ -1,4 +1,4 @@
-﻿using MONEY_FLOW_API.IService;
+using MONEY_FLOW_API.IService;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MONEY_FLOW_API.Service
@@ -29,6 +29,10 @@ namespace MONEY_FLOW_API.Service
 
             #region # INSTALLMENTS
             services.AddTransient<IInstallmentsService, InstallmentsService>();
+            #endregion
+
+            #region # REPORTS
+            services.AddTransient<IReportsService, ReportsService>();
             #endregion
         }
     }
