@@ -20,6 +20,7 @@ namespace MONEY_FLOW_API.Service
             #region # SETUP
             services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IBudgetsService, BudgetsService>();
             #endregion
 
             #region # TRANSACTIONS

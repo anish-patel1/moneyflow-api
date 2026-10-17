@@ -22,6 +22,7 @@ namespace MONEY_FLOW_API.Repository
             #region # SETUP
             services.AddTransient<IAccountsRepository, AccountsRepository>();
             services.AddTransient<ICategoriesRepository, CategoriesRepository>();
+            services.AddTransient<IBudgetsRepository, BudgetsRepository>();
             #endregion
 
             #region # TRANSACTIONS
