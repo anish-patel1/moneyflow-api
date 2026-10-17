@@ -103,40 +103,6 @@ moneyflow-api/
 └── MONEY_FLOW_API.sln
 ```
 
----
-
-## 🔌 Key API Endpoints
-
-### Budgets
-- `POST /api/Budgets/SelectAll` - Retrieve all budgets with category details, spent amount, and period filtering
-- `POST /api/Budgets/Insert` - Create or update a budget limit for a category and period
-- `POST /api/Budgets/Delete` - Delete a specific budget entry
-- `POST /api/Budgets/AutoGenerate` - Copy budgets from a source period (month/year) to a target period
-
-### Accounts
-- `POST /api/Accounts/SelectAll` - List all accounts with balances
-- `POST /api/Accounts/Insert` - Create a new account
-- `POST /api/Accounts/Update` - Update account details
-- `POST /api/Accounts/Delete` - Soft/Hard delete an account
-
-### Categories
-- `POST /api/Categories/SelectAll` - List categories with frequency and type
-- `POST /api/Categories/Insert` - Create a new category
-- `POST /api/Categories/Update` - Update an existing category
-- `POST /api/Categories/Delete` - Delete a category
-
-### Transactions & Transfers
-- `POST /api/Transactions/SelectAll` - Filtered transaction history
-- `POST /api/Transactions/Insert` - Record income or expense
-- `POST /api/Transactions/Update` - Edit transaction
-- `POST /api/Transactions/Delete` - Delete transaction and revert balance
-- `POST /api/Transfer/Insert` - Execute double-entry transfer
-
-### Dashboard
-- `POST /api/Dashboard/SelectAll` - Aggregated financial metrics and recent transactions
-
----
-
 # ⚙️ Setup Instructions
 
 ### Prerequisites
