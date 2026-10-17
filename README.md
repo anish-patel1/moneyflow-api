@@ -2,9 +2,9 @@
 
 MoneyFlow API is the backend service for the **MoneyFlow Personal Finance Management System**.
 
-It provides APIs to manage **accounts, categories, transactions, transfers, and financial summaries**.
+It provides APIs to manage **accounts, categories, transactions, transfers, budgets, and financial summaries**.
 
-The API follows a **clean layered architecture** and uses **SQL Server stored procedures with Dapper** for efficient database access.
+The API follows a **clean layered architecture** (.NET 8 multi-project solution) and uses **SQL Server stored procedures with Dapper** for high-performance data access.
 
 ---
 
@@ -13,86 +13,136 @@ The API follows a **clean layered architecture** and uses **SQL Server stored pr
 ### Backend
 - .NET 8
 - ASP.NET Core Web API
-- Dapper (Lightweight ORM)
+- Dapper (High-performance micro-ORM)
 
 ### Database
 - SQL Server
-- Stored Procedures
+- Parameterized Stored Procedures
+- Relational integrity constraints and targeted non-clustered indexes
 
-### Tools
-- Swagger (API documentation)
+### Tools & Documentation
+- Swagger / OpenAPI (API documentation & interactive test console)
+- JWT Authentication & BCrypt Password Hashing
 
 ---
 
 # 📌 Features
 
 ### Accounts
-- Create and manage financial accounts
+- Create, view, update, and manage financial accounts
 - Supports Cash, Bank, and Fixed Deposit accounts
-- Tracks account balances
+- Real-time balance recalculation and tracking
 
 ### Categories
 - Manage income and expense categories
+- Frequency categorization (`Monthly`, `Bimonthly`, `Quarterly`, `SixMonthly`, `Yearly`, `OneTime`) for automated budget planning
 - System categories used internally (e.g. transfers)
 
 ### Transactions
 - Add, edit, and delete transactions
 - Handles income and expense operations
-- Updates account balance automatically
+- Updates account balance automatically via database transactions
+- Search, filter by category, account, and date range
 
 ### Transfers
 - Transfer funds between accounts
 - Implemented using **double-entry transaction logic**
 - Each transfer creates two linked transactions
-- Uses `TransferGroupId` to connect related entries
+- Uses `TransferGroupId` to connect related entries atomically
+
+### Budgets
+- Category-level budget planning with spending limits
+- Grouped budgeting aligned with category frequencies (`Monthly`, `Bimonthly`, `Quarterly`, `SixMonthly`, `Yearly`, `OneTime`)
+- Period tracking (`PeriodMonth`, `PeriodYear`)
+- Real-time spent calculations aggregated against transactions for the selected period
+- Auto-generation of budgets copied from previous period budgets (`MF_Budgets_AutoGenerate`)
+- Enforces unique constraint per user, category, and period (`UQ_MF_Budgets_Period`)
 
 ### Dashboard
-- Total balance calculation
-- Monthly income summary
-- Monthly expense summary
+- Total balance calculation across active accounts
+- Monthly income and expense summaries
 - Net cash flow calculation
-- Recent transactions data
+- Recent transactions feed
 
 ---
 
 # 🏗 Architecture
 
-The API follows a **layered architecture**:
+The API solution follows a **clean multi-project layered architecture**:
 
-Responsibilities:
-
-| Layer | Responsibility |
-|------|---------------|
-| Controllers | Handle HTTP requests and responses |
-| Services | Business logic |
-| Repositories | Data access using Dapper |
-| Database | Stored procedures for financial operations |
+| Layer / Project | Responsibility |
+|-----------------|----------------|
+| `MONEY_FLOW_API` | Controllers, HTTP endpoints, routing, middleware, DI registration |
+| `MONEY_FLOW_API.Model` | Domain entities, request DTOs, and view models |
+| `MONEY_FLOW_API.IService` | Service interface contracts |
+| `MONEY_FLOW_API.Service` | Business logic and validation |
+| `MONEY_FLOW_API.IRepository` | Repository interface contracts |
+| `MONEY_FLOW_API.Repository` | Data access layer using Dapper and stored procedures |
+| Database | SQL Server stored procedures and relational tables |
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-├── Controllers
-├── Models
-├── Services
-│   ├── Interfaces
-│   └── Implementations
-├── Repositories
-│   ├── Interfaces
-│   └── Implementations
-└── Program.cs
+moneyflow-api/
+├── MONEY_FLOW_API/               # Web API Host & Controllers
+│   ├── Controllers/
+│   │   ├── Accounts/
+│   │   ├── Categories/
+│   │   ├── Setup/               # BudgetsController, etc.
+│   │   ├── Transactions/
+│   │   └── Dashboard/
+│   ├── Extensions/              # Repository & Service DI Registrations
+│   └── Program.cs
+├── MONEY_FLOW_API.Model/         # Domain Models & DTOs
+├── MONEY_FLOW_API.IService/      # Service Contracts
+├── MONEY_FLOW_API.Service/       # Business Logic Implementations
+├── MONEY_FLOW_API.IRepository/   # Repository Contracts
+├── MONEY_FLOW_API.Repository/    # Dapper Stored Procedure Access
+└── MONEY_FLOW_API.sln
 ```
+
+---
+
+## 🔌 Key API Endpoints
+
+### Budgets
+- `POST /api/Budgets/SelectAll` - Retrieve all budgets with category details, spent amount, and period filtering
+- `POST /api/Budgets/Insert` - Create or update a budget limit for a category and period
+- `POST /api/Budgets/Delete` - Delete a specific budget entry
+- `POST /api/Budgets/AutoGenerate` - Copy budgets from a source period (month/year) to a target period
+
+### Accounts
+- `POST /api/Accounts/SelectAll` - List all accounts with balances
+- `POST /api/Accounts/Insert` - Create a new account
+- `POST /api/Accounts/Update` - Update account details
+- `POST /api/Accounts/Delete` - Soft/Hard delete an account
+
+### Categories
+- `POST /api/Categories/SelectAll` - List categories with frequency and type
+- `POST /api/Categories/Insert` - Create a new category
+- `POST /api/Categories/Update` - Update an existing category
+- `POST /api/Categories/Delete` - Delete a category
+
+### Transactions & Transfers
+- `POST /api/Transactions/SelectAll` - Filtered transaction history
+- `POST /api/Transactions/Insert` - Record income or expense
+- `POST /api/Transactions/Update` - Edit transaction
+- `POST /api/Transactions/Delete` - Delete transaction and revert balance
+- `POST /api/Transfer/Insert` - Execute double-entry transfer
+
+### Dashboard
+- `POST /api/Dashboard/SelectAll` - Aggregated financial metrics and recent transactions
 
 ---
 
 # ⚙️ Setup Instructions
 
 ### Prerequisites
-
 - .NET 8 SDK
-- SQL Server
-- Visual Studio / VS Code
+- SQL Server (2019+)
+- Visual Studio 2022 / VS Code
 
 ---
 
@@ -101,49 +151,46 @@ Responsibilities:
 ```bash
 dotnet restore
 dotnet build
-dotnet run
+dotnet run --project MONEY_FLOW_API
 ```
+
+Swagger UI will be available at: `https://localhost:7196/swagger` (or configured launch URL).
+
 ---
 
 ## 📈 Project Status
 
-### Phase 1 – Core Financial System (In Progress)
+### Phase 1 – Core Financial System
 
 | Module | Status | Description |
 |------|------|-------------|
 | Accounts | ✅ Completed | Create and manage financial accounts with balance tracking |
-| Categories | ✅ Completed | Manage income and expense categories |
+| Categories | ✅ Completed | Manage income and expense categories with frequency settings |
 | Transactions | ✅ Completed | Add, edit, delete transactions with automatic balance updates |
 | Transfers | ✅ Completed | Transfer funds between accounts using double-entry transaction logic |
 | Dashboard | ✅ Completed | Financial summary endpoints for balance, income, expense, and net flow |
-| Budgets | 🚧 In Progress | Monthly budget tracking and spending limits |
-| Installments (EMI) | 📌 Planned | Track installment payments and recurring obligations |
+| Budgets | ✅ Completed | Monthly/period budget limits, frequency grouping, auto-generation, spent tracking |
+| Installments (EMI) | 📌 Planned (Next Phase) | Track installment payments and recurring obligations |
 | Reports | 📌 Planned | Financial reports and analytics endpoints |
 
 ---
 
 ### Current Capabilities
-
 The API currently supports:
-
-- Account management
-- Category management
-- Transaction processing
-- Account-to-account transfers
-- Automatic balance calculation
-- Dashboard financial summaries
-- Stored procedure driven database operations
+- Full account lifecycle and balance tracking
+- Income/expense categories with frequency configuration
+- Real-time double-entry transaction and fund transfer processing
+- Periodic budget limits, spent calculations, and auto-generation
+- Executive dashboard metrics and financial statistics
+- Stored procedure driven database operations with Dapper
 
 ---
 
-### Upcoming Improvements
-
-Planned enhancements include:
-
-- Budget management system
-- Installment / EMI tracking
-- Financial reports and analytics
-- Performance improvements and additional validations
+### Next Phase: Installments (EMI) & Reports
+Planned enhancements:
+- Installment / EMI lifecycle tracking (Loan amount, interest, EMI schedules)
+- Advanced financial analytics, breakdown reports, and data exports
+- Visual trend metrics and forecasting
 
 ---
 
