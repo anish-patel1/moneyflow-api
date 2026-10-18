@@ -1,4 +1,4 @@
-﻿namespace MONEY_FLOW_API.Model
+namespace MONEY_FLOW_API.Model
 {
     public class Installments : BaseClass
     {
@@ -10,6 +10,8 @@
         public int? InitialPaidMonths { get; set; }
         public string? StartDate { get; set; }
         public int? BillingDay { get; set; }
+        public string? BillingType { get; set; }
+        public int? DueDay { get; set; }
         public string? Description { get; set; }
 
         // Other

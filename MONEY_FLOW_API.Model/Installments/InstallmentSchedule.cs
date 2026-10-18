@@ -7,6 +7,8 @@ namespace MONEY_FLOW_API.Model
         public int? InstallmentNo { get; set; }
         public string? DueDate { get; set; }
         public string? DueDateFormatted { get; set; }
+        public string? PaymentStartDate { get; set; }
+        public string? PaymentStartDateFormatted { get; set; }
         public decimal? OpeningBalance { get; set; }
         public decimal? ScheduledAmount { get; set; }
         public decimal? Principal { get; set; }

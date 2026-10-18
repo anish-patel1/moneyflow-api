@@ -40,6 +40,8 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@StartDate", obj.StartDate);
             queryParameters.Add("@BillingDay", obj.BillingDay);
             queryParameters.Add("@Description", obj.Description);
+            queryParameters.Add("@BillingType", obj.BillingType ?? "FixedDate");
+            queryParameters.Add("@DueDay", obj.DueDay);
             await _context.CustomQueryAsync<Installments>("MF_Installments_Insert", queryParameters);
             return obj;
         }
@@ -72,6 +74,8 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@StartDate", obj.StartDate);
             queryParameters.Add("@BillingDay", obj.BillingDay);
             queryParameters.Add("@Description", obj.Description);
+            queryParameters.Add("@BillingType", obj.BillingType ?? "FixedDate");
+            queryParameters.Add("@DueDay", obj.DueDay);
             await _context.CustomQueryAsync<Installments>("MF_Installments_Update", queryParameters);
             return obj;
         }
@@ -94,6 +98,7 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@UserId", obj.UserId);
             queryParameters.Add("@InstallmentNo", obj.InstallmentNo);
             queryParameters.Add("@DueDate", obj.DueDate);
+            queryParameters.Add("@PaymentStartDate", obj.PaymentStartDate);
             queryParameters.Add("@OpeningBalance", obj.OpeningBalance);
             queryParameters.Add("@ScheduledAmount", obj.ScheduledAmount);
             queryParameters.Add("@Principal", obj.Principal);
