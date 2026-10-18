@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MONEY_FLOW_API.IService;
 using MONEY_FLOW_API.Model;
@@ -156,6 +156,124 @@ namespace MONEY_FLOW_API.Controllers
 
             return Ok(data);
         }
+        #endregion
+
+        #region # SCHEDULE ENDPOINTS
+
+        #region # ScheduleSelectAll
+        [HttpPost]
+        public async Task<IActionResult> ScheduleSelectAll(InstallmentSchedule obj)
+        {
+            var data = await _installmentsService.ScheduleSelectAll(obj);
+            return Ok(data);
+        }
+        #endregion
+
+        #region # ScheduleInsert
+        [HttpPost]
+        public async Task<IActionResult> ScheduleInsert(InstallmentSchedule obj)
+        {
+            try
+            {
+                await _installmentsService.ScheduleInsert(obj);
+                return Ok(new
+                {
+                    success = true,
+                    type = "success",
+                    message = "Schedule entry saved successfully!"
+                });
+            }
+            catch (SqlException ex)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    type = "warning",
+                    message = ex.Message
+                });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    type = "error",
+                    message = "Something went wrong."
+                });
+            }
+        }
+        #endregion
+
+        #region # ScheduleBulkInsert
+        [HttpPost]
+        public async Task<IActionResult> ScheduleBulkInsert(InstallmentSchedule obj)
+        {
+            try
+            {
+                await _installmentsService.ScheduleBulkInsert(obj);
+                return Ok(new
+                {
+                    success = true,
+                    type = "success",
+                    message = "Amortization schedule saved successfully!"
+                });
+            }
+            catch (SqlException ex)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    type = "warning",
+                    message = ex.Message
+                });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    type = "error",
+                    message = "Something went wrong."
+                });
+            }
+        }
+        #endregion
+
+        #region # ScheduleDelete
+        [HttpPost]
+        public async Task<IActionResult> ScheduleDelete(InstallmentSchedule obj)
+        {
+            try
+            {
+                await _installmentsService.ScheduleDelete(obj);
+                return Ok(new
+                {
+                    success = true,
+                    type = "success",
+                    message = "Schedule entry deleted successfully!"
+                });
+            }
+            catch (SqlException ex)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    type = "warning",
+                    message = ex.Message
+                });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    type = "error",
+                    message = "Something went wrong."
+                });
+            }
+        }
+        #endregion
+
         #endregion
 
         #endregion

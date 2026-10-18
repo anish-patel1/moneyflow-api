@@ -1,4 +1,4 @@
-﻿using MONEY_FLOW_API.IRepository;
+using MONEY_FLOW_API.IRepository;
 using MONEY_FLOW_API.Model;
 using Dapper;
 
@@ -34,6 +34,7 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@AccountId", obj.AccountId);
             queryParameters.Add("@CategoryId", obj.CategoryId);
             queryParameters.Add("@InstallmentId", obj.InstallmentId);
+            queryParameters.Add("@InstallmentScheduleId", obj.InstallmentScheduleId);
             queryParameters.Add("@TransactionDate", obj.TransactionDate);
             queryParameters.Add("@Amount", obj.Amount);
             queryParameters.Add("@TransactionType", obj.TransactionType);

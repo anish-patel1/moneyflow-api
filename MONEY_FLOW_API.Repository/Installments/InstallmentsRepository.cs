@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using MONEY_FLOW_API.IRepository;
 using MONEY_FLOW_API.Model;
 
@@ -73,6 +73,60 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@BillingDay", obj.BillingDay);
             queryParameters.Add("@Description", obj.Description);
             await _context.CustomQueryAsync<Installments>("MF_Installments_Update", queryParameters);
+            return obj;
+        }
+        #endregion
+
+        #region # SCHEDULE METHODS
+        public async Task<IEnumerable<InstallmentSchedule>> ScheduleSelectAll(InstallmentSchedule obj)
+        {
+            var queryParameters = new DynamicParameters();
+            queryParameters.Add("@InstallmentId", obj.InstallmentId);
+            queryParameters.Add("@UserId", obj.UserId);
+            return await _context.CustomQueryAsync<InstallmentSchedule>("MF_InstallmentSchedule_SelectAll", queryParameters);
+        }
+
+        public async Task<InstallmentSchedule> ScheduleInsert(InstallmentSchedule obj)
+        {
+            var queryParameters = new DynamicParameters();
+            queryParameters.Add("@InstallmentScheduleId", obj.InstallmentScheduleId);
+            queryParameters.Add("@InstallmentId", obj.InstallmentId);
+            queryParameters.Add("@UserId", obj.UserId);
+            queryParameters.Add("@InstallmentNo", obj.InstallmentNo);
+            queryParameters.Add("@DueDate", obj.DueDate);
+            queryParameters.Add("@OpeningBalance", obj.OpeningBalance);
+            queryParameters.Add("@ScheduledAmount", obj.ScheduledAmount);
+            queryParameters.Add("@Principal", obj.Principal);
+            queryParameters.Add("@Interest", obj.Interest);
+            queryParameters.Add("@InterestRate", obj.InterestRate);
+            queryParameters.Add("@ExtraCharges", obj.ExtraCharges);
+            queryParameters.Add("@ChargesDescription", obj.ChargesDescription);
+            queryParameters.Add("@ClosingBalance", obj.ClosingBalance);
+            queryParameters.Add("@ScheduleStatus", obj.ScheduleStatus);
+            queryParameters.Add("@PaidDate", obj.PaidDate);
+            queryParameters.Add("@PaidAmount", obj.PaidAmount);
+            queryParameters.Add("@TransactionId", obj.TransactionId);
+            queryParameters.Add("@Notes", obj.Notes);
+            await _context.CustomQueryAsync<InstallmentSchedule>("MF_InstallmentSchedule_Insert", queryParameters);
+            return obj;
+        }
+
+        public async Task<InstallmentSchedule> ScheduleBulkInsert(InstallmentSchedule obj)
+        {
+            var queryParameters = new DynamicParameters();
+            queryParameters.Add("@InstallmentId", obj.InstallmentId);
+            queryParameters.Add("@UserId", obj.UserId);
+            queryParameters.Add("@ScheduleJson", obj.ScheduleJson);
+            await _context.CustomQueryAsync<InstallmentSchedule>("MF_InstallmentSchedule_BulkInsert", queryParameters);
+            return obj;
+        }
+
+        public async Task<InstallmentSchedule> ScheduleDelete(InstallmentSchedule obj)
+        {
+            var queryParameters = new DynamicParameters();
+            queryParameters.Add("@InstallmentScheduleId", obj.InstallmentScheduleId);
+            queryParameters.Add("@UserId", obj.UserId);
+            await _context.CustomQueryAsync<InstallmentSchedule>("MF_InstallmentSchedule_Delete", queryParameters);
             return obj;
         }
         #endregion

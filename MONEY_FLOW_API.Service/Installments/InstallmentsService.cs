@@ -1,4 +1,4 @@
-﻿using MONEY_FLOW_API.IRepository;
+using MONEY_FLOW_API.IRepository;
 using MONEY_FLOW_API.IService;
 using MONEY_FLOW_API.Model;
 
@@ -41,6 +41,28 @@ namespace MONEY_FLOW_API.Service
         public async Task<Installments> Update(Installments obj)
         {
             return await _installmentsRepository.Update(obj);
+        }
+        #endregion
+
+        #region # SCHEDULE METHODS
+        public async Task<IEnumerable<InstallmentSchedule>> ScheduleSelectAll(InstallmentSchedule obj)
+        {
+            return await _installmentsRepository.ScheduleSelectAll(obj);
+        }
+
+        public async Task<InstallmentSchedule> ScheduleInsert(InstallmentSchedule obj)
+        {
+            return await _installmentsRepository.ScheduleInsert(obj);
+        }
+
+        public async Task<InstallmentSchedule> ScheduleBulkInsert(InstallmentSchedule obj)
+        {
+            return await _installmentsRepository.ScheduleBulkInsert(obj);
+        }
+
+        public async Task<InstallmentSchedule> ScheduleDelete(InstallmentSchedule obj)
+        {
+            return await _installmentsRepository.ScheduleDelete(obj);
         }
         #endregion
     }
