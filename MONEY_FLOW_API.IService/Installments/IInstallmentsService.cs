@@ -8,5 +8,6 @@ namespace MONEY_FLOW_API.IService
         Task<InstallmentSchedule> ScheduleInsert(InstallmentSchedule obj);
         Task<InstallmentSchedule> ScheduleBulkInsert(InstallmentSchedule obj);
         Task<InstallmentSchedule> ScheduleDelete(InstallmentSchedule obj);
+        Task<bool> SchedulePayMultiple(PayMultipleScheduleRequest obj);
     }
 }

@@ -10,7 +10,7 @@ namespace MONEY_FLOW_API.Model
         public int? InstallmentId { get; set; }
         public string? InstallmentName { get; set; }
         public int? InstallmentScheduleId { get; set; }
-        public int? InstallmentNo { get; set; }
+        public string? InstallmentNo { get; set; }
         public string? TransactionDate { get; set; }
         public decimal? Amount { get; set; }
         public string? TransactionType { get; set; }

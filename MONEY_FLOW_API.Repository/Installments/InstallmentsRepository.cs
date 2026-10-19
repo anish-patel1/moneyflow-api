@@ -134,6 +134,22 @@ namespace MONEY_FLOW_API.Repository
             await _context.CustomQueryAsync<InstallmentSchedule>("MF_InstallmentSchedule_Delete", queryParameters);
             return obj;
         }
+
+        public async Task<bool> SchedulePayMultiple(PayMultipleScheduleRequest obj)
+        {
+            var queryParameters = new DynamicParameters();
+            queryParameters.Add("@UserId", obj.UserId);
+            queryParameters.Add("@InstallmentId", obj.InstallmentId);
+            queryParameters.Add("@ScheduleIds", obj.ScheduleIds);
+            queryParameters.Add("@AccountId", obj.AccountId);
+            queryParameters.Add("@TransactionDate", obj.TransactionDate);
+            queryParameters.Add("@Amount", obj.Amount);
+            queryParameters.Add("@ExtraCharges", obj.ExtraCharges);
+            queryParameters.Add("@ChargesDescription", obj.ChargesDescription);
+            queryParameters.Add("@Description", obj.Description);
+            await _context.CustomQueryAsync<dynamic>("MF_InstallmentSchedule_PayMultiple", queryParameters);
+            return true;
+        }
         #endregion
     }
 }

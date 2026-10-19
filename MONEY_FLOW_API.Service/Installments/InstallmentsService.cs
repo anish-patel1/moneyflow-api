@@ -64,6 +64,11 @@ namespace MONEY_FLOW_API.Service
         {
             return await _installmentsRepository.ScheduleDelete(obj);
         }
+
+        public async Task<bool> SchedulePayMultiple(PayMultipleScheduleRequest obj)
+        {
+            return await _installmentsRepository.SchedulePayMultiple(obj);
+        }
         #endregion
     }
 }

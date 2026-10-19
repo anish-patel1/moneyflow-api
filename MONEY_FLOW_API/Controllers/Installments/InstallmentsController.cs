@@ -274,6 +274,41 @@ namespace MONEY_FLOW_API.Controllers
         }
         #endregion
 
+        #region # SchedulePayMultiple
+        [HttpPost]
+        public async Task<IActionResult> SchedulePayMultiple(PayMultipleScheduleRequest obj)
+        {
+            try
+            {
+                await _installmentsService.SchedulePayMultiple(obj);
+                return Ok(new
+                {
+                    success = true,
+                    type = "success",
+                    message = "Batch installment payment recorded successfully!"
+                });
+            }
+            catch (SqlException ex)
+            {
+                return Ok(new
+                {
+                    success = false,
+                    type = "warning",
+                    message = ex.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    type = "error",
+                    message = ex.Message
+                });
+            }
+        }
+        #endregion
+
         #endregion
 
         #endregion
