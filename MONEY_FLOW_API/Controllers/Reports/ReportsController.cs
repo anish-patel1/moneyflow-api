@@ -34,5 +34,25 @@ namespace MONEY_FLOW_API.Controllers
             return Ok(data);
         }
         #endregion
+
+        #region # Year at a Glance (Expense Pivot)
+        [HttpPost]
+        public async Task<IActionResult> YearAtAGlance(Reports obj)
+        {
+            var data = await _reportsService.YearAtAGlance(obj);
+
+            return Ok(data);
+        }
+        #endregion
+
+        #region # Savings Summary & Trends
+        [HttpPost]
+        public async Task<IActionResult> SavingsSummary(Reports obj)
+        {
+            var data = await _reportsService.SavingsSummary(obj);
+
+            return Ok(data);
+        }
+        #endregion
     }
 }

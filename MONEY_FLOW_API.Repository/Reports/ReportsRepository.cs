@@ -32,5 +32,23 @@ namespace MONEY_FLOW_API.Repository
 
             return await _context.CustomQueryAsync<CategoryReconciliation>("MF_Reports_CategoryBreakdown", queryParameters);
         }
+
+        public async Task<IEnumerable<YearAtAGlanceItem>> YearAtAGlance(Reports obj)
+        {
+            var queryParameters = new DynamicParameters();
+            queryParameters.Add("@UserId", obj.UserId);
+            queryParameters.Add("@Year", obj.Year);
+
+            return await _context.CustomQueryAsync<YearAtAGlanceItem>("MF_Reports_YearAtAGlance", queryParameters);
+        }
+
+        public async Task<IEnumerable<SavingsSummaryItem>> SavingsSummary(Reports obj)
+        {
+            var queryParameters = new DynamicParameters();
+            queryParameters.Add("@UserId", obj.UserId);
+            queryParameters.Add("@Year", obj.Year);
+
+            return await _context.CustomQueryAsync<SavingsSummaryItem>("MF_Reports_SavingsSummary", queryParameters);
+        }
     }
 }
