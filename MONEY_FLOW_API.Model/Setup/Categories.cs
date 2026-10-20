@@ -6,6 +6,7 @@ namespace MONEY_FLOW_API.Model
         public string? CategoryName { get; set; }
         public string? CategoryType { get; set; }
         public string? Frequency { get; set; }
+        public bool? IsExcludeFromIncome { get; set; } = false;
         public bool? IsSystem { get; set; }
     }
 }

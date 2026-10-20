@@ -36,6 +36,7 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@CategoryName", obj.CategoryName);
             queryParameters.Add("@CategoryType", obj.CategoryType);
             queryParameters.Add("@Frequency", obj.Frequency);
+            queryParameters.Add("@IsExcludeFromIncome", obj.IsExcludeFromIncome ?? false);
             queryParameters.Add("@CreatedBy", obj.CreatedBy);
             await _context.CustomQueryAsync<Categories>("MF_Categories_Insert", queryParameters);
             return obj;
@@ -62,6 +63,7 @@ namespace MONEY_FLOW_API.Repository
             queryParameters.Add("@CategoryName", obj.CategoryName);
             queryParameters.Add("@CategoryType", obj.CategoryType);
             queryParameters.Add("@Frequency", obj.Frequency);
+            queryParameters.Add("@IsExcludeFromIncome", obj.IsExcludeFromIncome ?? false);
             queryParameters.Add("@UpdatedBy", obj.UpdatedBy);
             await _context.CustomQueryAsync<Categories>("MF_Categories_Update", queryParameters);
             return obj;
