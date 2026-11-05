@@ -1,4 +1,4 @@
-﻿using MONEY_FLOW_API.IRepository;
+using MONEY_FLOW_API.IRepository;
 using MONEY_FLOW_API.IService;
 using MONEY_FLOW_API.Model;
 
@@ -12,9 +12,9 @@ namespace MONEY_FLOW_API.Service
             _dashboardRepository = dashboardRepository;
         }
 
-        public async Task<IEnumerable<DashboardSummary>> SummarySelect(int? id)
+        public async Task<IEnumerable<DashboardSummary>> SummarySelect(int? id, int? year = null, int? month = null)
         {
-            return await _dashboardRepository.SummarySelect(id);
+            return await _dashboardRepository.SummarySelect(id, year, month);
         }
     }
 }

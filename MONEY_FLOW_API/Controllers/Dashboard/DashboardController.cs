@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MONEY_FLOW_API.IService;
 
@@ -17,9 +17,9 @@ namespace MONEY_FLOW_API.Controllers
 
         #region # Summary Select Method
         [HttpGet]
-        public async Task<IActionResult> SummarySelect(int? id)
+        public async Task<IActionResult> SummarySelect(int? id, int? year, int? month)
         {
-            var data = await _dashboardService.SummarySelect(id);
+            var data = await _dashboardService.SummarySelect(id, year, month);
 
             return Ok(data);
         }
