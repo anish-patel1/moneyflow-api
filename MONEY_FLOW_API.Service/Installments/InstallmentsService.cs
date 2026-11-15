@@ -52,6 +52,13 @@ namespace MONEY_FLOW_API.Service
 
         public async Task<InstallmentSchedule> ScheduleInsert(InstallmentSchedule obj)
         {
+            // Auto-calculate derived fields to enforce integrity
+            obj.ScheduledAmount = (obj.Principal ?? 0) + (obj.Interest ?? 0) + (obj.ExtraCharges ?? 0);
+            if (obj.OpeningBalance.HasValue)
+            {
+                obj.ClosingBalance = Math.Max(0, obj.OpeningBalance.Value - (obj.Principal ?? 0));
+            }
+
             return await _installmentsRepository.ScheduleInsert(obj);
         }
 
